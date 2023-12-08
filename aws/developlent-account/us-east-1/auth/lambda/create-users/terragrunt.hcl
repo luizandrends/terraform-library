@@ -20,7 +20,7 @@ dependency "dev_vpc" {
 inputs = merge(local.default_tags.locals.default_tags, local.application_tags, {
   name = "create-users"
 
-  handler     = "lambda_code/src/main/main"
+  handler     = "main"
   memory_size = 128
   runtime     = "go1.x"
   timeout     = 15
