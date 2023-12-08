@@ -1,0 +1,44 @@
+name: Terragrunt Plan
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "**/*.tpl"
+      - "**/*.py"
+      - "**/*.tf"
+      - "**/*.hcl"
+      - "**/*.md"
+      - ".github/workflows/docs.yml"
+
+jobs:
+  terragrunt-plan:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Configure AWS credentials from Test account
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE }}
+          aws-region: us-east-1
+      - name: Setup SSH Key
+        uses: webfactory/ssh-agent@v0.8.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.5
+          terraform_wrapper: false
+      - name: Setup Terragrunt
+        uses: autero1/action-terragrunt@v1.1.0
+        with:
+          terragrunt_version: 0.52.3
+      - name: Terragrunt Plan
+        run: terragrunt run-all apply --terragrunt-non-interactive
+        working-directory: aws
