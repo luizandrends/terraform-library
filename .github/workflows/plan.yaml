@@ -35,4 +35,4 @@ jobs:
           terragrunt_version: 0.52.3
       - name: Terragrunt Plan
         run: terragrunt run-all plan --terragrunt-non-interactive
-        working-directory: ~/aws
+        working-directory: aws
