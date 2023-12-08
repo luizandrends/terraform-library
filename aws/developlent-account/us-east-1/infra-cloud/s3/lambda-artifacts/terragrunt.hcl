@@ -11,7 +11,7 @@ terraform {
 }
 
 inputs = merge(local.default_tags.locals.default_tags, local.application_tags, {
-  name = "default-bucket"
+  name = "lambda-artifacts"
 })
 
 include {
