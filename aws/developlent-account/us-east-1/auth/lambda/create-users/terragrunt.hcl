@@ -13,6 +13,10 @@ terraform {
   source = "git@github.com:luizandrends/terraform-modules.git//modules/lambda?ref=v1.21.0"
 }
 
+dependency "dev_vpc" {
+  config_path = "../../../infra-cloud/vpc/dev-main"
+}
+
 inputs = merge(local.default_tags.locals.default_tags, local.application_tags, {
   name = "create-users"
 
