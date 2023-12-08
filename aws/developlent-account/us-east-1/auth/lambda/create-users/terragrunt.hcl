@@ -10,11 +10,11 @@ locals {
 }
 
 terraform {
-  source = "../../../../../modules/lambda"
+  source = "git@github.com:luizandrends/terraform-modules.git//modules/lambda?ref=v1.21.0"
 }
 
 inputs = merge(local.default_tags.locals.default_tags, local.application_tags, {
-  name = "artifact-function"
+  name = "create-users"
 
   handler     = "lambda_code/src/main/main"
   memory_size = 128
