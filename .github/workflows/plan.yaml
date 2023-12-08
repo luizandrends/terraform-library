@@ -6,6 +6,7 @@ on:
       - "**/*.tpl"
       - "**/*.py"
       - "**/*.tf"
+      - "**/*.hcl"
       - "**/*.md"
       - ".github/workflows/docs.yml"
 
