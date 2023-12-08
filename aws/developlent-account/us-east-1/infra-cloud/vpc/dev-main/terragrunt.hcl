@@ -3,6 +3,17 @@ locals {
   providers = read_terragrunt_config(find_in_parent_folders("providers.hcl"))
   application_tags = {
     application = "core-infra"
+    additional_tags = {
+      services_vpc = true
+    }
+    private_subnet_additional_tags = {
+      services_subnet = true
+      private_subnet  = true
+    }
+    public_subnet_additional_tags = {
+      services_subnet = false
+      private_subnet  = false
+    }
   }
 }
 
