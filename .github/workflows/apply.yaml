@@ -1,4 +1,4 @@
-name: Terragrunt Plan
+name: Terragrunt Apply
 
 on:
   push:
@@ -39,6 +39,6 @@ jobs:
         uses: autero1/action-terragrunt@v1.1.0
         with:
           terragrunt_version: 0.52.3
-      - name: Terragrunt Plan
+      - name: Terragrunt Apply
         run: terragrunt run-all apply --terragrunt-non-interactive
         working-directory: aws

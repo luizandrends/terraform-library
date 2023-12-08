@@ -13,9 +13,9 @@ terraform {
   source = "git@github.com:luizandrends/terraform-modules.git//modules/sqs?ref=v1.19.0"
 }
 
-inputs = merge(local.default_tags.locals.default_tags, local.application_tags, {
-  name = "default-queuee"
-})
+# inputs = merge(local.default_tags.locals.default_tags, local.application_tags, {
+#   name = "default-queuee"
+# })
 
 include {
   path = find_in_parent_folders()
