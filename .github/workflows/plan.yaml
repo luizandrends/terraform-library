@@ -24,6 +24,10 @@ jobs:
         with:
           role-to-assume: ${{ secrets.AWS_ROLE }}
           aws-region: us-east-1
+      - name: Setup SSH Key
+        uses: webfactory/ssh-agent@v0.8.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
         with:
