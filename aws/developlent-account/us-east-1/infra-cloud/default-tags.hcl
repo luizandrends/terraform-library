@@ -1,6 +1,6 @@
 locals {
   default_tags = {
     environment = "dev"
-    team        = "auth"
+    team        = "infra-cloud"
   }
 }
