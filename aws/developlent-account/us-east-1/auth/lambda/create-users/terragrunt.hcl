@@ -23,7 +23,7 @@ inputs = merge(local.default_tags.locals.default_tags, local.application_tags, {
 
   handler     = "main"
   memory_size = 128
-  runtime     = "go1.x"
+  runtime     = "nodejs20.x"
   timeout     = 15
 
   sg_rules = [
