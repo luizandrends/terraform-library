@@ -21,7 +21,7 @@ dependency "create_users_table" {
 inputs = merge(local.default_tags.locals.default_tags, local.application_tags, {
   name = "create-users"
 
-  handler     = "main"
+  handler     = "dist/main/handler.handleRequest"
   memory_size = 128
   runtime     = "nodejs20.x"
   timeout     = 15
