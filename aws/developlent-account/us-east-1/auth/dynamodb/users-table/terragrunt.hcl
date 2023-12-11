@@ -1,6 +1,6 @@
 locals {
   default_tags = read_terragrunt_config(find_in_parent_folders("default-tags.hcl"))
-  providers = read_terragrunt_config(find_in_parent_folders("providers.hcl"))
+  providers    = read_terragrunt_config(find_in_parent_folders("providers.hcl"))
   application_tags = {
     application = "create-users"
   }
@@ -8,10 +8,6 @@ locals {
 
 terraform {
   source = "git@github.com:luizandrends/terraform-modules.git//modules/dynamodb?ref=v1.21.0"
-}
-
-dependency "create_users_lambda" {
-  config_path = "../../lambda/create-users"
 }
 
 inputs = merge(local.default_tags.locals.default_tags, local.application_tags, {
