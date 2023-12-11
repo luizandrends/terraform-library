@@ -48,6 +48,15 @@ inputs = merge(local.default_tags.locals.default_tags, local.application_tags, {
       description = "Allow LB Traffic",
     }
   ]
+
+  policy = [
+    {
+      "sid": "AllowDynamoDBCreateUsersAccess"
+      "effect": "Allow"
+      "actions": ["dynamodb:PutItem", "dynamodb:UpdateItem"]
+      "resources": ["arn:aws:dynamodb:us-east-1:035267315123:table/aws-dynamodb-users-table-use1-dev"]
+    }
+  ]
 })
 
 include {
