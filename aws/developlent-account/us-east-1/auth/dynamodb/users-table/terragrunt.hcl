@@ -48,6 +48,37 @@ inputs = merge(local.default_tags.locals.default_tags, local.application_tags, {
       type = "S"
     }
   ]
+
+  global_secondary_indexes = [
+    {
+      name               = "NameIndex"
+      hash_key           = "name"
+      range_key          = "email"
+      projection_type    = "INCLUDE"
+      non_key_attributes = ["id"]
+    },
+    {
+      name               = "PasswordIndex"
+      hash_key           = "password"
+      range_key          = "email"
+      projection_type    = "INCLUDE"
+      non_key_attributes = ["id"]
+    },
+    {
+      name               = "CreatedAtIndex"
+      hash_key           = "created_at"
+      range_key          = "email"
+      projection_type    = "INCLUDE"
+      non_key_attributes = ["id"]
+    },
+    {
+      name               = "UpdatedAtIndex"
+      hash_key           = "updated_at"
+      range_key          = "email"
+      projection_type    = "INCLUDE"
+      non_key_attributes = ["id"]
+    }
+  ]
 })
 
 include {
