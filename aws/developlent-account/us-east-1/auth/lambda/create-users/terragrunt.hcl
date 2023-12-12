@@ -57,7 +57,7 @@ inputs = merge(local.default_tags.locals.default_tags, local.application_tags, {
     {
       "sid" : "AllowDynamoDBCreateUsersAccess"
       "effect" : "Allow"
-      "actions" : ["dynamodb:PutItem", "dynamodb:UpdateItem", "dynamodb:GetItem", "dynamodb:DeleteItem"]
+      "actions" : ["dynamodb:PutItem", "dynamodb:UpdateItem", "dynamodb:GetItem", "dynamodb:DeleteItem", "dynamodb:Query"]
       "resources" : [dependency.create_users_table.outputs.dynamodb_table_arn]
     }
   ]
