@@ -63,7 +63,9 @@ inputs = merge(local.default_tags.locals.default_tags, local.application_tags, {
         "dynamodb:GetItem",
         "dynamodb:DeleteItem",
         "dynamodb:Query",
-        "dynamodb:Scan"
+        "dynamodb:Scan",
+        "dynamodb:BatchGetItem",
+        "dynamodb:ConditionCheckItem"
       ]
       "resources" : [dependency.create_users_table.outputs.dynamodb_table_arn]
     }
