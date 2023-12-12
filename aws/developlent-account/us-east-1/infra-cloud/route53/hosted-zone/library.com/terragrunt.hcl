@@ -12,6 +12,7 @@ inputs =  {
       comment = "dev-library.com (dev env)"
       tags = {
         Name = "dev-library.com"
+        application = "core-infra"
       }
     }
   }
