@@ -59,15 +59,16 @@ inputs = merge(local.default_tags.locals.default_tags, local.application_tags, {
       "effect" : "Allow"
       "actions" : [
         "dynamodb:PutItem",
-        "dynamodb:UpdateItem",
-        "dynamodb:GetItem",
-        "dynamodb:DeleteItem",
-        "dynamodb:Query",
-        "dynamodb:Scan",
-        "dynamodb:BatchGetItem",
-        "dynamodb:ConditionCheckItem"
       ]
       "resources" : [dependency.create_users_table.outputs.dynamodb_table_arn]
+    },
+    {
+      "sid": "AllowDynamoDBCreateUsersEmailIndexAccess"
+      "effect": "Allow"
+      "actions": [
+        "dynamodb:Query"
+      ]
+      "resources": ["${dependency.create_users_table.outputs.dynamodb_table_arn}/index/EmailIndex"]
     }
   ]
 })
