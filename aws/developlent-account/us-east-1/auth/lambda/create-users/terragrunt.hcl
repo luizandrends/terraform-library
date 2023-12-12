@@ -24,7 +24,7 @@ inputs = merge(local.default_tags.locals.default_tags, local.application_tags, {
   handler     = "dist/main/handler.handleRequest"
   memory_size = 128
   runtime     = "nodejs20.x"
-  timeout     = 12
+  timeout     = 20
 
   sg_rules = [
     {
@@ -57,7 +57,7 @@ inputs = merge(local.default_tags.locals.default_tags, local.application_tags, {
     {
       "sid" : "AllowDynamoDBCreateUsersAccess"
       "effect" : "Allow"
-      "actions" : ["dynamodb:PutItem", "dynamodb:UpdateItem"]
+      "actions" : ["dynamodb:PutItem", "dynamodb:UpdateItem", "dynamodb:GetItem", "dynamodb:DeleteItem"]
       "resources" : [dependency.create_users_table.outputs.dynamodb_table_arn]
     }
   ]
