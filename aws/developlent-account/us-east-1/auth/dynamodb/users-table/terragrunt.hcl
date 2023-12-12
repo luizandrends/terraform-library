@@ -54,6 +54,13 @@ inputs = merge(local.default_tags.locals.default_tags, local.application_tags, {
       non_key_attributes = ["id"]
     },
     {
+      name               = "EmailIndex"
+      hash_key           = "email"
+      range_key          = "name"
+      projection_type    = "INCLUDE"
+      non_key_attributes = ["id"]
+    },
+    {
       name               = "PasswordIndex"
       hash_key           = "password"
       range_key          = "email"
