@@ -18,7 +18,7 @@ locals {
 }
 
 terraform {
-  source = "git@github.com:luizandrends/terraform-modules.git//modules/vpc?ref=v1.23.1"
+  source = "git@github.com:luizandrends/terraform-modules.git//modules/vpc?ref=v1.23.2"
 }
 
 inputs = merge(local.default_tags.locals.default_tags, local.application_tags, {
