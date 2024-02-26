@@ -38,8 +38,11 @@ jobs:
       - name: Determine Changed Directories
         id: changed_dirs
         run: |
-          CHANGED_DIRS=$(git diff --name-only HEAD^ HEAD -- 'AWS/**/*.hcl' | xargs -n 1 dirname | sort | uniq)
-          echo "::set-output name=dirs::$CHANGED_DIRS"
+          CHANGED_FILES=$(git diff --name-only HEAD^ HEAD -- 'AWS/**/*.hcl')
+          if [ -n "$CHANGED_FILES" ]; then
+            CHANGED_DIRS=$(echo "$CHANGED_FILES" | xargs -n 1 dirname | sort | uniq)
+            echo "::set-output name=dirs::$CHANGED_DIRS"
+          fi
       - name: Terragrunt Plan
         run: |
           for dir in ${{ steps.changed_dirs.outputs.dirs }}
