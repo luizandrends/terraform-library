@@ -42,6 +42,7 @@ jobs:
           echo "::set-output name=dirs::$CHANGED_DIRS"
       - name: Terragrunt Plan
         run: |
+          set -e
           for dir in ${{ steps.changed_dirs.outputs.dirs }}
           do
             pushd $dir
