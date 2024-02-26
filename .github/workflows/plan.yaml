@@ -1,11 +1,11 @@
 name: Terragrunt Plan
 
 on:
-  push:
-    branches:
-      - main
+  pull_request:
     paths:
-      - "AWS/**"
+      - "**/*.json"
+      - "**/*.tf"
+      - "**/*.hcl"
 jobs:
   terragrunt-plan:
     runs-on: ubuntu-latest
