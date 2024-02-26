@@ -24,7 +24,7 @@ inputs = merge(local.default_tags.locals.default_tags, local.application_tags, {
   handler     = "dist/main/handler.handleRequest"
   memory_size = 128
   runtime     = "nodejs20.x"
-  timeout     = 20
+  timeout     = 40
 
   sg_rules = [
     {
