@@ -3,13 +3,9 @@ name: Terragrunt Plan
 on:
   pull_request:
     paths:
-      - "**/*.tpl"
-      - "**/*.py"
+      - "**/*.json"
       - "**/*.tf"
       - "**/*.hcl"
-      - "**/*.md"
-      - ".github/workflows/docs.yml"
-
 jobs:
   terragrunt-plan:
     runs-on: ubuntu-latest
@@ -19,6 +15,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Configure AWS credentials from Test account
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -40,13 +38,18 @@ jobs:
       - name: Determine Changed Directories
         id: changed_dirs
         run: |
-          CHANGED_DIRS=$(git diff --name-only HEAD^ HEAD | grep -o '.*/' | sort | uniq)
-          echo "::set-output name=dirs::$CHANGED_DIRS"
-      - name: Terragrunt Plan and Apply
+          git fetch origin main
+          CHANGED_FILES=$(git diff --name-only origin/main HEAD -- 'aws/**/*.hcl')
+          if [ -n "$CHANGED_FILES" ]; then
+            CHANGED_DIRS=$(echo "$CHANGED_FILES" | xargs -n 1 dirname | sort | uniq)
+            echo "::set-output name=dirs::$CHANGED_DIRS"
+          fi
+      - name: Terragrunt Plan
         run: |
           for dir in ${{ steps.changed_dirs.outputs.dirs }}
           do
             pushd $dir
+            echo "Running terragrunt plan in $dir"
             terragrunt plan --terragrunt-non-interactive
             popd
           done
