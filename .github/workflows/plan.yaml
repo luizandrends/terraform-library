@@ -48,7 +48,7 @@ jobs:
           do
             pushd $dir
             echo "Running terragrunt plan in $dir"
-            PLAN=$(terragrunt plan --terragrunt-non-interactive)
+            PLAN=$(terragrunt plan)
             echo "$PLAN"
             popd
           done
