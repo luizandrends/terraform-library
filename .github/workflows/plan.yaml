@@ -1,15 +1,11 @@
 name: Terragrunt Plan
 
 on:
-  pull_request:
+  push:
+    branches:
+      - main
     paths:
-      - "**/*.tpl"
-      - "**/*.py"
-      - "**/*.tf"
-      - "**/*.hcl"
-      - "**/*.md"
-      - ".github/workflows/docs.yml"
-
+      - "AWS/**"
 jobs:
   terragrunt-plan:
     runs-on: ubuntu-latest
@@ -39,10 +35,10 @@ jobs:
         uses: autero1/action-terragrunt@v1.1.0
         with:
           terragrunt_version: 0.52.3
-      - name: Git Diff
+      - name: Determine Changed Directories
         id: changed_dirs
         run: |
-          CHANGED_DIRS=$(git diff --name-only HEAD^ HEAD | grep -o '.*/' | sort | uniq)
+          CHANGED_DIRS=$(git diff --name-only HEAD^ HEAD -- 'AWS/*' | grep -o 'AWS/.*/' | sort | uniq)
           echo "::set-output name=dirs::$CHANGED_DIRS"
       - name: Terragrunt Plan
         run: |
@@ -50,7 +46,7 @@ jobs:
           do
             pushd $dir
             echo "Running terragrunt plan in $dir"
-            PLAN=$(terragrunt plan)
+            PLAN=$(terragrunt plan --terragrunt-non-interactive)
             echo "$PLAN"
             popd
           done
