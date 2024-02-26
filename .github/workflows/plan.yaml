@@ -37,6 +37,16 @@ jobs:
         uses: autero1/action-terragrunt@v1.1.0
         with:
           terragrunt_version: 0.52.3
-      - name: Terragrunt Plan
-        run: terragrunt run-all plan --terragrunt-non-interactive
-        working-directory: aws
+      - name: Determine Changed Directories
+        id: changed_dirs
+        run: |
+          CHANGED_DIRS=$(git diff --name-only HEAD^ HEAD | grep -o '.*/' | sort | uniq)
+          echo "::set-output name=dirs::$CHANGED_DIRS"
+      - name: Terragrunt Plan and Apply
+        run: |
+          for dir in ${{ steps.changed_dirs.outputs.dirs }}
+          do
+            pushd $dir
+            terragrunt plan --terragrunt-non-interactive
+            popd
+          done
