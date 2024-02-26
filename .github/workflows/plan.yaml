@@ -38,7 +38,8 @@ jobs:
       - name: Determine Changed Directories
         id: changed_dirs
         run: |
-          CHANGED_FILES=$(git diff --name-only HEAD^ HEAD -- 'AWS/**/*.hcl')
+          git fetch origin main
+          CHANGED_FILES=$(git diff --name-only origin/main HEAD -- 'aws/**/*.hcl')
           if [ -n "$CHANGED_FILES" ]; then
             CHANGED_DIRS=$(echo "$CHANGED_FILES" | xargs -n 1 dirname | sort | uniq)
             echo "::set-output name=dirs::$CHANGED_DIRS"
@@ -50,6 +51,5 @@ jobs:
             pushd $dir
             echo "Running terragrunt plan in $dir"
             terragrunt plan --terragrunt-non-interactive
-            dirs
             popd
           done
