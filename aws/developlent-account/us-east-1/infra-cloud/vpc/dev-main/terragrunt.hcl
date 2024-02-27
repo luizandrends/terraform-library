@@ -34,10 +34,6 @@ inputs = merge(local.default_tags.locals.default_tags, local.application_tags, {
     {
       cidr_block        = "10.0.2.0/24"
       availability_zone = "us-east-1b"
-    },
-    {
-      cidr_block        = "10.0.3.0/24"
-      availability_zone = "us-east-1c"
     }
   ]
 
@@ -49,10 +45,6 @@ inputs = merge(local.default_tags.locals.default_tags, local.application_tags, {
     {
       cidr_block        = "10.0.102.0/24"
       availability_zone = "us-east-1b"
-    },
-    {
-      cidr_block        = "10.0.103.0/24"
-      availability_zone = "us-east-1c"
     }
   ]
 })
