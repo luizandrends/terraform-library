@@ -53,6 +53,6 @@ jobs:
         run: |
           for DIR in ${{ steps.changed_dirs.outputs.dirs }}; do
             pushd "$DIR"
-            terragrunt apply -auto-approve
+            terragrunt apply --terragrunt-non-interactive
             popd
           done
