@@ -82,6 +82,8 @@ inputs = merge(local.default_tags.locals.default_tags, local.application_tags, {
       non_key_attributes = ["id"]
     }
   ]
+
+  
 })
 
 include {
